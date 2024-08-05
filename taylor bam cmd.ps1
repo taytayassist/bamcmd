@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "SilentlyContinue"
+$ErrorActionPreference = "SilentlyContinue"
 
 function Get-Signature {
 
@@ -53,7 +53,7 @@ Write-Host "";
 
 function Test-Admin {;$currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent());$currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator);}
 if (!(Test-Admin)) {
-    Write-Warning "Ejecutalo como administrador."
+    Write-Warning "Please Run This Script as Admin."
     Start-Sleep 10
     Exit
 }
@@ -80,7 +80,7 @@ $Bam = Foreach ($Sid in $Users){$u++
             
         foreach($rp in $rpath){
            $BamItems = Get-Item -Path "$($rp)UserSettings\$Sid" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Property
-           Write-Host -ForegroundColor Red "Extrayendo. . . " -NoNewLine
+           Write-Host -ForegroundColor Red "Extracting " -NoNewLine
            Write-Host -ForegroundColor Blue "$($rp)UserSettings\$SID"
            $bi = 0 
 
@@ -130,4 +130,4 @@ $Bam | Out-GridView -PassThru -Title "BAM key entries $($Bam.count)  - User Time
 $sw.stop()
 $t = $sw.Elapsed.TotalMinutes
 Write-Host ""
-Write-Host "Tiempo transcurrido $t Minutos" -ForegroundColor Yellow
+Write-Host "Elapsed Time $t Minutes" -ForegroundColor Yellow
